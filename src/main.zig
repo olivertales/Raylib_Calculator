@@ -1,5 +1,4 @@
 const std = @import("std");
-const Raylib_Calculator = @import("Raylib_Calculator");
 const ray = @cImport({
     @cInclude("raylib.h");
 });
