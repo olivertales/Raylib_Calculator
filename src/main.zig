@@ -38,7 +38,6 @@ pub fn main() !void {
             var arena: std.heap.ArenaAllocator = .init(allocator);
             const arena_alloc = arena.allocator();
             defer arena.deinit();
-
             var sorted_numop: std.SinglyLinkedList = .{};
             const operations = operation_units.items;
             for (numbers_str.items, 0..) |str_num, idx| {
@@ -154,19 +153,16 @@ const WindowPosition = struct { x: c_int, y: c_int };
 pub fn Calculate(allocator: std.mem.Allocator, num_ops: *std.SinglyLinkedList) []u8 {
     var calculated_num: ?f64 = null;
     var curr_node = num_ops.first;
-    std.debug.print("Calculation prints: \n", .{});
-    std.debug.print("First Node: {any}\n", .{curr_node});
+
     while (curr_node) |node| {
         if (node.next == null)
             break;
 
-        std.debug.print("Current Node: {}\n", .{node});
         const num_op: *NumberOperation = @fieldParentPtr("node", node);
         const op = num_op.op;
         const num = num_op.num;
         const next_op: *NumberOperation = @fieldParentPtr("node", node.next.?);
-        std.debug.print("Current Number Operation: {any}\n", .{num_op});
-        std.debug.print("Next Number Operation: {any}\n", .{next_op});
+
         if (calculated_num == null)
             calculated_num = num;
 
